@@ -17,40 +17,39 @@ services:
       - PORT=3000
       - NATS_SERVERS=nats://nats-server:4222
 
-  # products-ms:
-  #   build: ./products-ms
-  #   volumes:
-  #     - ./products-ms:/src:/usr/src/app/src
-  #   command: yarn start:dev
-  #   environment:
-  #     - PORT=3001
-  #     - NATS_SERVERS=nats://nats-server:4222
-  #     - DATABASE_URL=file:./dev.db
+  products-ms:
+     build: ./products-ms
+     volumes:
+       - ./products-ms:/src:/usr/src/app/src
+     command: yarn start:dev
+     environment:
+       - PORT=3001
+       - NATS_SERVERS=nats://nats-server:4222
+       - DATABASE_URL=file:./dev.db
 
-  # # Orders MS
-  # orders-ms:
-  #   depends_on:
-  #     - orders-db
-  #   build: ./orders-ms
-  #   volumes:
-  #     - ./orders-ms:/src:/usr/src/app/src
-  #   command: yarn start:dev
-  #   environment:
-  #     - PORT=3002
-  #     - DATABASE_URL=postgresql://admin:admin123@orders-db:5432/ordersdb?schema=public
-  #     - NATS_SERVERS=nats://nats-server:4222
+   # Orders MS
+  orders-ms:
+     depends_on:
+       - orders-db
+     build: ./orders-ms
+     volumes:
+       - ./orders-ms:/src:/usr/src/app/src
+     command: yarn start:dev
+     environment:
+       - PORT=3002
+       - DATABASE_URL=postgresql://admin:admin123@orders-db:5432/ordersdb?schema=public
+       - NATS_SERVERS=nats://nats-server:4222
 
-
-  # # DB Orders ms
-  # orders-db:
-  #   image: postgres:16
-  #   container_name: orders_database
-  #   restart: always
-  #   environment:
-  #     POSTGRES_USER: admin
-  #     POSTGRES_PASSWORD: admin123
-  #     POSTGRES_DB: ordersdb
-  #   ports:
-  #     - '5432:5432'
-  #   volumes:
-  #     - ./orders-ms/postgres:/var/lib/postgresql/data
+   # DB Orders ms
+  orders-db:
+     image: postgres:16
+     container_name: orders_database
+     restart: always
+     environment:
+       POSTGRES_USER: admin
+       POSTGRES_PASSWORD: admin123
+       POSTGRES_DB: ordersdb
+     ports:
+       - '5432:5432'
+     volumes:
+       - ./orders-ms/postgres:/var/lib/postgresql/data
