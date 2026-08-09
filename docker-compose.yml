@@ -22,7 +22,8 @@ services:
        - products-db
      build: ./products-ms
      volumes:
-       - ./products-ms:/src:/usr/src/app/src
+        - ./products-ms/src:/usr/src/app/src
+        - /usr/src/app/node_modules
      command: yarn start:dev
      environment:
        - PORT=3001
@@ -35,7 +36,8 @@ services:
        - orders-db
      build: ./orders-ms
      volumes:
-       - ./orders-ms:/src:/usr/src/app/src
+        - ./orders-ms/src:/usr/src/app/src
+        - /usr/src/app/node_modules
      command: yarn start:dev
      environment:
        - PORT=3002
