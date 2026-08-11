@@ -1,1 +1,4 @@
 .env
+
+orders-ms/postgres/
+products-ms/postgres/
